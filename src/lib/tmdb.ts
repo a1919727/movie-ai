@@ -46,7 +46,7 @@ function getTmdbApiKey() {
 }
 
 async function fetchTmdbData<T>(
-  path: string,
+  path: string | null,
   searchParams?: Record<string, string | number | undefined>,
 ) {
   const tmdbApiKey = getTmdbApiKey();
@@ -68,7 +68,7 @@ async function fetchTmdbData<T>(
   return response.json() as Promise<T>;
 }
 
-export function getTmdbImageUrl(path: string, size: "w342" | "w500") {
+export function getTmdbImageUrl(path: string | null, size: "w500" | "w780") {
   if (!path) return null;
   return `${TMDB_IMAGE_BASE_URL}/${size}${path}`;
 }
