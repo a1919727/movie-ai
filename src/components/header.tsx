@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export function Header() {
   return (
@@ -13,7 +14,8 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <button type="button">Theme</button>
+          {/* <button type="button">Theme</button> */}
+          <ModeToggle />
           <Link href="/auth">Sign in</Link>
         </div>
       </div>
