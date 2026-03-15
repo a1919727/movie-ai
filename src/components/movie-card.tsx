@@ -1,7 +1,11 @@
-import Link from "next/link";
 import { Star } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { MoviePoster } from "@/components/movie-poster";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { MoviePoster } from "./movie-poster";
 import { type TmdbMovie } from "@/lib/tmdb";
 
 type MovieCardProps = {
@@ -15,29 +19,18 @@ export function MovieCard({ movie }: MovieCardProps) {
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
 
   return (
-    <Link href={`/movies/${movie.id}`} className="group block">
-      <Card className="h-full gap-0 py-0 transition-transform duration-300 group-hover:-translate-y-1">
-        <MoviePoster path={movie.poster_path} title={movie.title} />
-        <CardContent className="space-y-4 p-4">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <h3 className="text-lg font-semibold text-foreground">
-                {movie.title}
-              </h3>
-              <div className="mt-1 flex items-center gap-3 text-sm text-muted-foreground">
-                <span>{year}</span>
-                <span className="flex items-center gap-1">
-                  <Star className="size-3.5 fill-current text-foreground" />
-                  {rating}
-                </span>
-              </div>
-            </div>
-          </div>
-          <p className="line-clamp-3 text-sm leading-6 text-muted-foreground">
-            {movie.overview || "No available overview."}
-          </p>
-        </CardContent>
-      </Card>
-    </Link>
+    <Card className="relative mx-auto w-full max-w-sm pt-0">
+      <MoviePoster path={movie.poster_path} title={movie.title} />
+      <CardHeader>
+        <CardTitle>{movie.title}</CardTitle>
+        <CardDescription className="flex items-center gap-3 text-sm text-foreground mt-1">
+          <span>{year}</span>
+          <span className="flex items-center gap-1">
+            <Star className="size-4 fill-yellow-300 text-yellow-300 " />
+            {rating}
+          </span>
+        </CardDescription>
+      </CardHeader>
+    </Card>
   );
 }
