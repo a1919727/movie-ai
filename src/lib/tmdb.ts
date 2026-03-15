@@ -68,7 +68,10 @@ async function fetchTmdbData<T>(
   return response.json() as Promise<T>;
 }
 
-export function getTmdbImageUrl(path: string | null, size: "w500" | "w780") {
+export function getTmdbImageUrl(
+  path: string | null,
+  size: "w500" | "w780" | "w1280",
+) {
   if (!path) return null;
   return `${TMDB_IMAGE_BASE_URL}/${size}${path}`;
 }
