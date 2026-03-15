@@ -15,7 +15,7 @@ export type TmdbMovie = {
   release_date: string;
   vote_average: number;
   genre_ids?: number[];
-  geners?: TmdbGenre[];
+  genres?: TmdbGenre[];
   runtime?: number;
 };
 
