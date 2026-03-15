@@ -1,11 +1,11 @@
-import { getNowPlayingMovies, getTmdbImageUrl } from "@/lib/tmdb";
+import { getPopularMovies, getTmdbImageUrl } from "@/lib/tmdb";
 import { MovieCard } from "@/components/movie-card";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default async function HomePage() {
-  const movieResponse = await getNowPlayingMovies();
+  const movieResponse = await getPopularMovies();
   const movies = movieResponse.results.slice(0, 12);
   const heroMovies = movies
     .filter((movie) => movie.backdrop_path)
