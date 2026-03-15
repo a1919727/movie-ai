@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,12 +8,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { GoogleSignInButton } from "@/components/login-google";
+import { signInWithGoogle } from "@/lib/auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
 export default function Auth() {
+  async function handleGoogleSignIn() {
+    await signInWithGoogle();
+  }
   return (
     <main className="flex min-h-screen items-center justify-center px-6">
       <Card className="w-full max-w-sm gap-10 px-5 py-10">
@@ -51,7 +56,13 @@ export default function Auth() {
           <Button type="submit" className="w-full">
             Login
           </Button>
-          <GoogleSignInButton />
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={handleGoogleSignIn}
+          >
+            Login with Google
+          </Button>
         </CardFooter>
       </Card>
     </main>

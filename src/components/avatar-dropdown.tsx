@@ -1,4 +1,6 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+"use client";
+
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,6 +10,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { signOut } from "@/lib/auth";
+import { useRouter } from "next/navigation";
 
 type User = {
   id: string;
@@ -19,6 +23,12 @@ type User = {
 export function AvatarDropdown({ user }: { user: User }) {
   const userName = user.user_metadata?.full_name ?? "U";
   const initial = userName.charAt(0).toUpperCase();
+
+  const router = useRouter();
+  async function handleSignOut() {
+    await signOut();
+    router.refresh();
+  }
 
   return (
     <DropdownMenu>
@@ -36,7 +46,9 @@ export function AvatarDropdown({ user }: { user: User }) {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem variant="destructive">Log out</DropdownMenuItem>
+          <DropdownMenuItem variant="destructive" onClick={handleSignOut}>
+            Log out
+          </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
