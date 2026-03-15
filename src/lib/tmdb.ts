@@ -56,7 +56,9 @@ async function fetchTmdbData<T>(
   });
 
   Object.entries(searchParams ?? {}).forEach(([key, value]) => {
-    if (!value) params.set(key, String(value));
+    if (value !== null && value !== undefined) {
+      params.set(key, String(value));
+    }
   });
 
   const response = await fetch(`${TMDB_BASE_URL}${path}?${params.toString()}`, {
