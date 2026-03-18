@@ -46,3 +46,8 @@ export { Prisma }
  * 
  */
 export type Rating = Prisma.RatingModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel

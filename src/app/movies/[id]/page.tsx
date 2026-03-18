@@ -5,6 +5,7 @@ import { Star } from "lucide-react";
 import { MovieRating } from "@/components/movie-rating";
 import { createClient } from "@/lib/supabase/server";
 import { getCommunityRating, getUserRating } from "@/lib/rating";
+import { Review } from "@/components/review";
 
 type MovieDetailsPageProps = {
   params: Promise<{
@@ -66,11 +67,14 @@ export default async function MovieDetailsPage({
               </Badge>
             ))}
           </div>
+
           <MovieRating
             movieId={movieId}
             userRating={userRatingRecord?.value ?? null}
             communityRating={communityRating ?? null}
           />
+
+          <Review />
         </section>
       </div>
     </main>
