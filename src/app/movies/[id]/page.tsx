@@ -2,6 +2,9 @@ import { MoviePoster } from "@/components/movie-poster";
 import { Badge } from "@/components/ui/badge";
 import { getMovieDetails, getMovieCasts } from "@/lib/tmdb";
 import { Star } from "lucide-react";
+import { MovieRating } from "@/components/movie-rating";
+import { createClient } from "@/lib/supabase/server";
+import { getCommunityRating, getUserRating } from "@/lib/rating";
 
 type MovieDetailsPageProps = {
   params: Promise<{
@@ -23,6 +26,17 @@ export default async function MovieDetailsPage({
     : "Unknown";
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
 
+  // Rating
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const movieId = movie.id;
+
+  const communityRating = await getCommunityRating(movieId);
+  let userRatingRecord = null;
+  if (user) userRatingRecord = await getUserRating(user.id, movieId);
+
   return (
     <main className="mx-auto w-full max-w-7xl px-6 py-10">
       <div className="flex items-center gap-10">
@@ -41,17 +55,22 @@ export default async function MovieDetailsPage({
             </span>
           </div>
           <div className="text-foreground">
-            <h2 className="text-base font-bold">Overview</h2>
+            <h2 className="text-base font-bold text-foreground">Overview</h2>
             <p>{movie.overview}</p>
           </div>
           <div>
-            <h2 className="text-base font-bold">Cast</h2>
+            <h2 className="text-base font-bold text-foreground">Cast</h2>
             {topCredits.map((credit) => (
               <Badge variant="outline" key={credit.id}>
                 {credit.name}
               </Badge>
             ))}
           </div>
+          <MovieRating
+            movieId={movieId}
+            userRating={userRatingRecord?.value ?? null}
+            communityRating={communityRating ?? null}
+          />
         </section>
       </div>
     </main>
