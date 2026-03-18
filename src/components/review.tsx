@@ -1,45 +1,141 @@
+"use client";
+
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Trash2 } from "lucide-react";
+import { deleteReview, saveReview } from "@/actions/review";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export function Review() {
+type ReviewProps = {
+  id: string;
+  userId: string;
+  content: string;
+  createdAt: Date;
+};
+
+type ReviewSectionProps = {
+  movieId: number;
+  isSignedIn: boolean;
+  userReview: ReviewProps | null;
+  reviews: ReviewProps[];
+};
+
+function formatDate(date: Date) {
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+export function ReviewSection({
+  movieId,
+  isSignedIn,
+  userReview,
+  reviews,
+}: ReviewSectionProps) {
+  const router = useRouter();
+  const [content, setContent] = useState(userReview?.content ?? "");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  async function handleSubmit() {
+    const trimmed = content.trim();
+    if (!trimmed) return;
+
+    setIsSubmitted(true);
+
+    try {
+      await saveReview(movieId, trimmed);
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to save review", error);
+    } finally {
+      setIsSubmitted(false);
+    }
+  }
+
+  async function handleDelete() {
+    await deleteReview(movieId);
+    router.refresh();
+  }
   return (
     <div>
-      <h2 className="text-base font-bold text-foreground mb-10">Review</h2>
       <Card>
         <CardHeader>
-          <CardTitle>Write a review</CardTitle>
+          <CardTitle>Reviews</CardTitle>
         </CardHeader>
         <CardContent>
-          <Textarea placeholder="Share your ideas about this movie..." />
-          <Button className=" mt-10">Submit review</Button>
+          {isSignedIn ? (
+            <>
+              <Textarea
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                placeholder="Share what you thought about this movie..."
+              />
+              <div className="flex justify-end mt-5">
+                <Button
+                  onClick={handleSubmit}
+                  disabled={isSubmitted}
+                  className="hover:scale-105"
+                >
+                  Submit review
+                </Button>
+              </div>
+            </>
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              Sign in to write a review.
+            </p>
+          )}
         </CardContent>
       </Card>
 
-      <div className="space-y-4 mt-10">
-        <div className="flex items-start gap-3">
-          <Avatar>
-            <AvatarFallback>J</AvatarFallback>
-          </Avatar>
+      <>
+        {reviews.length ? (
+          reviews.map((review) => {
+            const initial = review.userId.charAt(0).toUpperCase();
 
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <p className="text-sm font-medium">Judy</p>
-              <span className="text-xs text-muted-foreground">2 hours ago</span>
-            </div>
-            <div className="flex items-center">
-              <p className="text-sm text-foreground flex-1">
-                Great pacing and strong performances.
-              </p>
-              <Button className="bg-transparent text-foreground">
-                <Trash2 />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+            return (
+              <div className="space-y-4 mt-10" key={review.id}>
+                <div className="flex items-center gap-3">
+                  <Avatar className="size-9">
+                    <AvatarFallback>{initial}</AvatarFallback>
+                  </Avatar>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-medium">User {initial}</p>
+                      <span className="text-xs text-muted-foreground">
+                        {formatDate(review.createdAt)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center ml-12">
+                  <p className="text-sm text-foreground flex-1">
+                    {review.content}
+                  </p>
+                  {userReview?.id === review.id ? (
+                    <button
+                      type="button"
+                      onClick={handleDelete}
+                      className="text-muted-foreground"
+                      aria-label="Delete review"
+                    >
+                      <Trash2 className="size-4" />
+                    </button>
+                  ) : null}
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <p className="text-sm text-muted-foreground mt-5">No reviews</p>
+        )}
+      </>
     </div>
   );
 }

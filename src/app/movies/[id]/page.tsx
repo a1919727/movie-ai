@@ -5,7 +5,8 @@ import { Star } from "lucide-react";
 import { MovieRating } from "@/components/movie-rating";
 import { createClient } from "@/lib/supabase/server";
 import { getCommunityRating, getUserRating } from "@/lib/rating";
-import { Review } from "@/components/review";
+import { ReviewSection } from "@/components/review";
+import { getMovieReviews, getUserReview } from "@/lib/review";
 
 type MovieDetailsPageProps = {
   params: Promise<{
@@ -37,6 +38,11 @@ export default async function MovieDetailsPage({
   const communityRating = await getCommunityRating(movieId);
   let userRatingRecord = null;
   if (user) userRatingRecord = await getUserRating(user.id, movieId);
+
+  // Review
+  const reviews = await getMovieReviews(movie.id);
+  let userReview = null;
+  if (user) userReview = await getUserReview(user.id, movie.id);
 
   return (
     <main className="mx-auto w-full max-w-7xl px-6 py-10">
@@ -74,7 +80,12 @@ export default async function MovieDetailsPage({
             communityRating={communityRating ?? null}
           />
 
-          <Review />
+          <ReviewSection
+            movieId={movieId}
+            isSignedIn={!!user}
+            userReview={userReview}
+            reviews={reviews}
+          />
         </section>
       </div>
     </main>
