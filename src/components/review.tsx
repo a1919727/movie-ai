@@ -139,8 +139,10 @@ export function ReviewSection({
                       >
                         <Trash2 className="size-5" />
                       </button>
-                      <ReportDialog />
                     </div>
+                  ) : null}
+                  {isSignedIn && userReview?.id !== review.id ? (
+                    <ReportDialog reviewId={review.id} />
                   ) : null}
                 </div>
               </div>
