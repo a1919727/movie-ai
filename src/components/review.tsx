@@ -8,6 +8,7 @@ import { Trash2 } from "lucide-react";
 import { deleteReview, saveReview } from "@/actions/review";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ReportDialog } from "@/components/report-dialog";
 
 type ReviewProps = {
   id: string;
@@ -129,14 +130,17 @@ export function ReviewSection({
                     {review.content}
                   </p>
                   {userReview?.id === review.id ? (
-                    <button
-                      type="button"
-                      onClick={handleDelete}
-                      className="text-muted-foreground"
-                      aria-label="Delete review"
-                    >
-                      <Trash2 className="size-4" />
-                    </button>
+                    <div className="flex items-center gap-5">
+                      <button
+                        type="button"
+                        onClick={handleDelete}
+                        className="text-muted-foreground hover:scale-105"
+                        aria-label="Delete review"
+                      >
+                        <Trash2 className="size-5" />
+                      </button>
+                      <ReportDialog />
+                    </div>
                   ) : null}
                 </div>
               </div>
