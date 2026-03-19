@@ -4,6 +4,9 @@ export async function getMovieReviews(movieId: number) {
   return prisma.review.findMany({
     where: { movieId },
     orderBy: { createdAt: "desc" },
+    include: {
+      user: true,
+    },
   });
 }
 
@@ -14,6 +17,9 @@ export async function getUserReview(userId: string, movieId: number) {
         userId,
         movieId,
       },
+    },
+    include: {
+      user: true,
     },
   });
 }

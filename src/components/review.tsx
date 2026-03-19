@@ -3,7 +3,7 @@
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Trash2 } from "lucide-react";
 import { deleteReview, saveReview } from "@/actions/review";
 import { useState } from "react";
@@ -14,6 +14,11 @@ type ReviewProps = {
   userId: string;
   content: string;
   createdAt: Date;
+  user: {
+    displayName: string | null;
+    email: string | null;
+    avatarUrl: string | null;
+  };
 };
 
 type ReviewSectionProps = {
@@ -61,6 +66,7 @@ export function ReviewSection({
     await deleteReview(movieId);
     router.refresh();
   }
+
   return (
     <div>
       <Card>
@@ -96,17 +102,21 @@ export function ReviewSection({
       <>
         {reviews.length ? (
           reviews.map((review) => {
-            const initial = review.userId.charAt(0).toUpperCase();
+            const userName = review.user.displayName ?? "User";
+            const initial = userName.charAt(0).toUpperCase();
 
             return (
               <div className="space-y-4 mt-10" key={review.id}>
                 <div className="flex items-center gap-3">
                   <Avatar className="size-9">
-                    <AvatarFallback>{initial}</AvatarFallback>
+                    <AvatarImage
+                      src={review.user.avatarUrl ?? ""}
+                      alt={userName}
+                    />
                   </Avatar>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-medium">User {initial}</p>
+                      <p className="text-sm font-medium">{userName}</p>
                       <span className="text-xs text-muted-foreground">
                         {formatDate(review.createdAt)}
                       </span>
