@@ -190,6 +190,7 @@ export type ProfileWhereInput = {
   avatarUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
+  reviews?: Prisma.ReviewListRelationFilter
 }
 
 export type ProfileOrderByWithRelationInput = {
@@ -199,6 +200,7 @@ export type ProfileOrderByWithRelationInput = {
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  reviews?: Prisma.ReviewOrderByRelationAggregateInput
 }
 
 export type ProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -211,6 +213,7 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   avatarUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
+  reviews?: Prisma.ReviewListRelationFilter
 }, "id" | "email">
 
 export type ProfileOrderByWithAggregationInput = {
@@ -244,6 +247,7 @@ export type ProfileCreateInput = {
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
 }
 
 export type ProfileUncheckedCreateInput = {
@@ -253,6 +257,7 @@ export type ProfileUncheckedCreateInput = {
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type ProfileUpdateInput = {
@@ -262,6 +267,7 @@ export type ProfileUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
 }
 
 export type ProfileUncheckedUpdateInput = {
@@ -271,6 +277,7 @@ export type ProfileUncheckedUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type ProfileCreateManyInput = {
@@ -327,10 +334,118 @@ export type ProfileMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type ProfileScalarRelationFilter = {
+  is?: Prisma.ProfileWhereInput
+  isNot?: Prisma.ProfileWhereInput
+}
+
+export type StringFieldUpdateOperationsInput = {
+  set?: string
+}
+
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
+export type ProfileCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutReviewsInput, Prisma.ProfileUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.ProfileWhereUniqueInput
+}
+
+export type ProfileUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutReviewsInput, Prisma.ProfileUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.ProfileUpsertWithoutReviewsInput
+  connect?: Prisma.ProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutReviewsInput, Prisma.ProfileUpdateWithoutReviewsInput>, Prisma.ProfileUncheckedUpdateWithoutReviewsInput>
+}
+
+export type ProfileCreateWithoutReviewsInput = {
+  id: string
+  email?: string | null
+  displayName?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProfileUncheckedCreateWithoutReviewsInput = {
+  id: string
+  email?: string | null
+  displayName?: string | null
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProfileCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.ProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutReviewsInput, Prisma.ProfileUncheckedCreateWithoutReviewsInput>
+}
+
+export type ProfileUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.ProfileUpdateWithoutReviewsInput, Prisma.ProfileUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutReviewsInput, Prisma.ProfileUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.ProfileWhereInput
+}
+
+export type ProfileUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.ProfileWhereInput
+  data: Prisma.XOR<Prisma.ProfileUpdateWithoutReviewsInput, Prisma.ProfileUncheckedUpdateWithoutReviewsInput>
+}
+
+export type ProfileUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProfileUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type ProfileCountOutputType
+ */
+
+export type ProfileCountOutputType = {
+  reviews: number
+}
+
+export type ProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  reviews?: boolean | ProfileCountOutputTypeCountReviewsArgs
+}
+
+/**
+ * ProfileCountOutputType without action
+ */
+export type ProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProfileCountOutputType
+   */
+  select?: Prisma.ProfileCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ProfileCountOutputType without action
+ */
+export type ProfileCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
 
 
 export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -340,6 +455,8 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   avatarUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  reviews?: boolean | Prisma.Profile$reviewsArgs<ExtArgs>
+  _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["profile"]>
 
 export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -370,10 +487,18 @@ export type ProfileSelectScalar = {
 }
 
 export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "displayName" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  reviews?: boolean | Prisma.Profile$reviewsArgs<ExtArgs>
+  _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type ProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ProfileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Profile"
-  objects: {}
+  objects: {
+    reviews: Prisma.$ReviewPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     email: string | null
@@ -775,6 +900,7 @@ readonly fields: ProfileFieldRefs;
  */
 export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  reviews<T extends Prisma.Profile$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -827,6 +953,10 @@ export type ProfileFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.ProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
+  /**
    * Filter, which Profile to fetch.
    */
   where: Prisma.ProfileWhereUniqueInput
@@ -845,6 +975,10 @@ export type ProfileFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.ProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
+  /**
    * Filter, which Profile to fetch.
    */
   where: Prisma.ProfileWhereUniqueInput
@@ -862,6 +996,10 @@ export type ProfileFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Profile
    */
   omit?: Prisma.ProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
   /**
    * Filter, which Profile to fetch.
    */
@@ -911,6 +1049,10 @@ export type ProfileFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.ProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
+  /**
    * Filter, which Profile to fetch.
    */
   where?: Prisma.ProfileWhereInput
@@ -958,6 +1100,10 @@ export type ProfileFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Profile
    */
   omit?: Prisma.ProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
   /**
    * Filter, which Profiles to fetch.
    */
@@ -1007,6 +1153,10 @@ export type ProfileCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.ProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
+  /**
    * The data needed to create a Profile.
    */
   data: Prisma.XOR<Prisma.ProfileCreateInput, Prisma.ProfileUncheckedCreateInput>
@@ -1054,6 +1204,10 @@ export type ProfileUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Profile
    */
   omit?: Prisma.ProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
   /**
    * The data needed to update a Profile.
    */
@@ -1121,6 +1275,10 @@ export type ProfileUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.ProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
+  /**
    * The filter to search for the Profile to update in case it exists.
    */
   where: Prisma.ProfileWhereUniqueInput
@@ -1147,6 +1305,10 @@ export type ProfileDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.ProfileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
+  /**
    * Filter which Profile to delete.
    */
   where: Prisma.ProfileWhereUniqueInput
@@ -1167,6 +1329,30 @@ export type ProfileDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Profile.reviews
+ */
+export type Profile$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
  * Profile without action
  */
 export type ProfileDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1178,4 +1364,8 @@ export type ProfileDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Profile
    */
   omit?: Prisma.ProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
 }

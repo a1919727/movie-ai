@@ -12,6 +12,17 @@ datasource db {
   provider = "postgresql"
 }
 
+model Profile {
+  id          String   @id
+  email       String?  @unique
+  displayName String?
+  avatarUrl   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  reviews     Review[]
+}
+
 model Rating {
   id        String   @id @default(cuid())
   userId    String
@@ -19,7 +30,7 @@ model Rating {
   value     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
+  
   @@unique([userId, movieId])
   @@index([movieId])
 }
@@ -32,15 +43,7 @@ model Review {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  user      Profile  @relation(fields: [userId], references: [id])
   @@unique([userId, movieId])
   @@index([movieId])
-}
-
-model Profile {
-  id          String   @id
-  email       String?  @unique
-  displayName String?
-  avatarUrl   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
 }

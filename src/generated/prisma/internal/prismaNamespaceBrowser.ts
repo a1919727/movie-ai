@@ -51,9 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Profile: 'Profile',
   Rating: 'Rating',
-  Review: 'Review',
-  Profile: 'Profile'
+  Review: 'Review'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -70,6 +70,18 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const ProfileScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  displayName: 'displayName',
+  avatarUrl: 'avatarUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
 
 
 export const RatingScalarFieldEnum = {
@@ -94,18 +106,6 @@ export const ReviewScalarFieldEnum = {
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
-
-
-export const ProfileScalarFieldEnum = {
-  id: 'id',
-  email: 'email',
-  displayName: 'displayName',
-  avatarUrl: 'avatarUrl',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
 
 
 export const SortOrder = {
