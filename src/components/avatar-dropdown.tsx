@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -19,14 +19,21 @@ type User = {
   id: string;
   user_metadata?: {
     full_name?: string;
+    avatar_url?: string;
+    picture?: string;
   };
 };
 
-export function AvatarDropdown({ user }: { user: User }) {
-  const userName = user.user_metadata?.full_name ?? "U";
+type AvatarDropdownProps = {
+  user: User;
+  isAdmin: boolean;
+};
+
+export function AvatarDropdown({ user, isAdmin }: AvatarDropdownProps) {
+  const userName = user.user_metadata?.full_name ?? "User";
+  const avatarUrl = user.user_metadata?.avatar_url ?? "";
   const initial = userName.charAt(0).toUpperCase();
   const [mounted, setMounted] = useState(false);
-
   const router = useRouter();
 
   useEffect(() => {
@@ -53,6 +60,7 @@ export function AvatarDropdown({ user }: { user: User }) {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="rounded-full">
           <Avatar className="size-9">
+            <AvatarImage src={avatarUrl} alt={userName} />
             <AvatarFallback>{initial}</AvatarFallback>
           </Avatar>
         </Button>
@@ -62,6 +70,11 @@ export function AvatarDropdown({ user }: { user: User }) {
           <DropdownMenuItem>
             <Link href="/profile">Profile</Link>
           </DropdownMenuItem>
+          {isAdmin ? (
+            <DropdownMenuItem asChild>
+              <Link href="/admin/report">Admin</Link>
+            </DropdownMenuItem>
+          ) : null}
           <DropdownMenuItem>Favorites</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
