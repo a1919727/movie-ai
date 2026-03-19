@@ -11,8 +11,8 @@ type MoviesPageProps = {
 export default async function MoviesPage({ searchParams }: MoviesPageProps) {
   const params = await searchParams;
   const currentPage = Math.max(1, Number(params?.page ?? "1") || 1);
-
   const response = await getNowPlayingMovies(currentPage);
+  const totalPages = response?.total_pages ?? 0;
   const movies = response.results;
 
   return (
@@ -25,10 +25,7 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
       </div>
 
       <div className="mt-8">
-        <MoviePagination
-          currentPage={currentPage}
-          totalPages={response.total_pages}
-        />
+        <MoviePagination currentPage={currentPage} totalPages={totalPages} />
       </div>
     </main>
   );
