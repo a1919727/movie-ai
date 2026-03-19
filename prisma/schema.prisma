@@ -21,6 +21,7 @@ model Profile {
   updatedAt   DateTime @updatedAt
 
   reviews     Review[]
+  reports     Report[]
 }
 
 model Rating {
@@ -44,6 +45,23 @@ model Review {
   updatedAt DateTime @updatedAt
 
   user      Profile  @relation(fields: [userId], references: [id])
+  reports   Report[]
   @@unique([userId, movieId])
   @@index([movieId])
+}
+
+model Report {
+  id          String   @id @default(cuid())
+  reporterId  String
+  reviewId    String
+  reason      String
+  description String?
+  createdAt   DateTime @default(now())
+
+  reporter    Profile @relation(fields: [reporterId], references: [id])
+  review      Review  @relation(fields: [reviewId], references: [id])
+  @@index([reviewId])
+  @@index([reporterId])
+  @@unique([reporterId, reviewId])
+
 }

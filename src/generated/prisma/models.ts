@@ -11,4 +11,5 @@
 export type * from './models/Profile'
 export type * from './models/Rating'
 export type * from './models/Review'
+export type * from './models/Report'
 export type * from './commonInputTypes'
