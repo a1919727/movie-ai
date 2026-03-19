@@ -11,24 +11,26 @@ export async function Header() {
   } = await supabase.auth.getUser();
 
   return (
-    <header className="border-b">
+    <header>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href="/">Movie.ai</Link>
+        <Link href="/" className="font-bold">
+          Movie.ai
+        </Link>
 
-        <nav className="flex items-center gap-5">
-          {/* <Link href="/">Home</Link> */}
-          {/* <Link href="/search">Search</Link> */}
-          <SearchBar />
-          <Link href="/movies">Movies</Link>
-        </nav>
+        <SearchBar />
+        <div className="flex items-center gap-4">
+          <nav className="flex items-center gap-5">
+            <Link href="/movies">Movies</Link>
+          </nav>
 
-        <div className="flex items-center gap-3">
-          <ModeToggle />
-          {user ? (
-            <AvatarDropdown user={user} />
-          ) : (
-            <Link href="/auth">Sign in</Link>
-          )}
+          <div className="flex items-center gap-3">
+            <ModeToggle />
+            {user ? (
+              <AvatarDropdown user={user} />
+            ) : (
+              <Link href="/auth">Sign in</Link>
+            )}
+          </div>
         </div>
       </div>
     </header>
