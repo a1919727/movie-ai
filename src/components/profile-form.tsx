@@ -3,8 +3,9 @@
 import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { updateProfile } from "@/actions/profile";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
@@ -32,27 +33,35 @@ export function ProfileForm({ initialName, initialEmail }: ProfileFormProps) {
 
     try {
       const supabase = createClient();
+      const trimmedName = name.trim();
+      const trimmedEmail = email.trim();
       const payload: {
         email?: string;
         password?: string;
         data: {
           full_name: string;
+          name: string;
         };
       } = {
         data: {
-          full_name: name.trim() || initialName,
+          full_name: trimmedName || initialName,
+          name: trimmedName || initialName,
         },
       };
 
-      if (!name.trim() || name.trim().length < 2) {
+      if (!trimmedName || trimmedName.length < 2) {
         throw new Error("Display name must be at least 2 characters.");
       }
-      if (!email.trim()) throw new Error("Email is required.");
-      if (email.trim() !== initialEmail) payload.email = email.trim();
+      if (!trimmedEmail) throw new Error("Email is required.");
+      if (trimmedEmail !== initialEmail) payload.email = trimmedEmail;
       if (password.trim()) payload.password = password.trim();
       const { error: updateError } = await supabase.auth.updateUser(payload);
 
       if (updateError) throw updateError;
+      await updateProfile({
+        email: trimmedEmail,
+        displayName: trimmedName,
+      });
 
       setPassword("");
       setMessage("Profile has been updated");
@@ -63,14 +72,6 @@ export function ProfileForm({ initialName, initialEmail }: ProfileFormProps) {
     } finally {
       setIsSubmitted(false);
     }
-  }
-
-  function handleReset() {
-    setName(initialName);
-    setEmail(initialEmail);
-    setPassword("");
-    setMessage(null);
-    setError(null);
   }
 
   return (
@@ -120,10 +121,7 @@ export function ProfileForm({ initialName, initialEmail }: ProfileFormProps) {
           ) : null}
           {error ? <p className="text-sm text-destructive">{error}</p> : null}
 
-          <div className="flex justify-end gap-2">
-            <Button type="button" variant="outline" onClick={handleReset}>
-              Reset
-            </Button>
+          <div className="flex justify-end">
             <Button type="submit" disabled={isSubmitted}>
               {isSubmitted ? "Saving..." : "Save changes"}
             </Button>

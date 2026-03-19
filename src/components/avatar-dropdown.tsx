@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,11 +25,27 @@ type User = {
 export function AvatarDropdown({ user }: { user: User }) {
   const userName = user.user_metadata?.full_name ?? "U";
   const initial = userName.charAt(0).toUpperCase();
+  const [mounted, setMounted] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   async function handleSignOut() {
     await signOut();
     router.refresh();
+  }
+
+  if (!mounted) {
+    return (
+      <Button variant="ghost" size="icon" className="rounded-full">
+        <Avatar className="size-9">
+          <AvatarFallback>{initial}</AvatarFallback>
+        </Avatar>
+      </Button>
+    );
   }
 
   return (
