@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "@/lib/auth";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type User = {
   id: string;
@@ -41,7 +42,9 @@ export function AvatarDropdown({ user }: { user: User }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-32">
         <DropdownMenuGroup>
-          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/profile">Profile</Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>Favorites</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
