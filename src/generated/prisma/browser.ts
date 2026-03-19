@@ -27,3 +27,8 @@ export type Rating = Prisma.RatingModel
  * 
  */
 export type Review = Prisma.ReviewModel
+/**
+ * Model Profile
+ * 
+ */
+export type Profile = Prisma.ProfileModel

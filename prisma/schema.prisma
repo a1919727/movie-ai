@@ -35,3 +35,12 @@ model Review {
   @@unique([userId, movieId])
   @@index([movieId])
 }
+
+model Profile {
+  id          String   @id
+  email       String?  @unique
+  displayName String?
+  avatarUrl   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
