@@ -72,7 +72,7 @@ export function AvatarDropdown({ user, isAdmin }: AvatarDropdownProps) {
           </DropdownMenuItem>
           {isAdmin ? (
             <DropdownMenuItem asChild>
-              <Link href="/admin/report">Admin</Link>
+              <Link href="/admin/moderation">Admin</Link>
             </DropdownMenuItem>
           ) : null}
           <DropdownMenuItem>Favorites</DropdownMenuItem>

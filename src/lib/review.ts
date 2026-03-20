@@ -23,3 +23,19 @@ export async function getUserReview(userId: string, movieId: number) {
     },
   });
 }
+
+export async function getFlaggedReviews() {
+  return prisma.review.findMany({
+    where: {
+      aiLabel: {
+        in: ["spam", "negative"],
+      },
+    },
+    orderBy: {
+      aiCheckedAt: "desc",
+    },
+    include: {
+      user: true,
+    },
+  });
+}

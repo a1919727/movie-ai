@@ -212,7 +212,7 @@ export type ReviewGroupByOutputType = {
   updatedAt: Date
   aiLabel: string | null
   aiReason: string | null
-  aiCheckedAt: Date | null
+  aiCheckedAt: Date
   _count: ReviewCountAggregateOutputType | null
   _avg: ReviewAvgAggregateOutputType | null
   _sum: ReviewSumAggregateOutputType | null
@@ -247,7 +247,7 @@ export type ReviewWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   aiLabel?: Prisma.StringNullableFilter<"Review"> | string | null
   aiReason?: Prisma.StringNullableFilter<"Review"> | string | null
-  aiCheckedAt?: Prisma.DateTimeNullableFilter<"Review"> | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   user?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   reports?: Prisma.ReportListRelationFilter
 }
@@ -261,7 +261,7 @@ export type ReviewOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   aiLabel?: Prisma.SortOrderInput | Prisma.SortOrder
   aiReason?: Prisma.SortOrderInput | Prisma.SortOrder
-  aiCheckedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  aiCheckedAt?: Prisma.SortOrder
   user?: Prisma.ProfileOrderByWithRelationInput
   reports?: Prisma.ReportOrderByRelationAggregateInput
 }
@@ -279,7 +279,7 @@ export type ReviewWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   aiLabel?: Prisma.StringNullableFilter<"Review"> | string | null
   aiReason?: Prisma.StringNullableFilter<"Review"> | string | null
-  aiCheckedAt?: Prisma.DateTimeNullableFilter<"Review"> | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   user?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   reports?: Prisma.ReportListRelationFilter
 }, "id" | "userId_movieId">
@@ -293,7 +293,7 @@ export type ReviewOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrder
   aiLabel?: Prisma.SortOrderInput | Prisma.SortOrder
   aiReason?: Prisma.SortOrderInput | Prisma.SortOrder
-  aiCheckedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  aiCheckedAt?: Prisma.SortOrder
   _count?: Prisma.ReviewCountOrderByAggregateInput
   _avg?: Prisma.ReviewAvgOrderByAggregateInput
   _max?: Prisma.ReviewMaxOrderByAggregateInput
@@ -313,7 +313,7 @@ export type ReviewScalarWhereWithAggregatesInput = {
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
   aiLabel?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
   aiReason?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
-  aiCheckedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Review"> | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
 }
 
 export type ReviewCreateInput = {
@@ -324,7 +324,7 @@ export type ReviewCreateInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string | null
+  aiCheckedAt?: Date | string
   user: Prisma.ProfileCreateNestedOneWithoutReviewsInput
   reports?: Prisma.ReportCreateNestedManyWithoutReviewInput
 }
@@ -338,7 +338,7 @@ export type ReviewUncheckedCreateInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string | null
+  aiCheckedAt?: Date | string
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReviewInput
 }
 
@@ -350,7 +350,7 @@ export type ReviewUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.ProfileUpdateOneRequiredWithoutReviewsNestedInput
   reports?: Prisma.ReportUpdateManyWithoutReviewNestedInput
 }
@@ -364,7 +364,7 @@ export type ReviewUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reports?: Prisma.ReportUncheckedUpdateManyWithoutReviewNestedInput
 }
 
@@ -377,7 +377,7 @@ export type ReviewCreateManyInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string | null
+  aiCheckedAt?: Date | string
 }
 
 export type ReviewUpdateManyMutationInput = {
@@ -388,7 +388,7 @@ export type ReviewUpdateManyMutationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewUncheckedUpdateManyInput = {
@@ -400,7 +400,7 @@ export type ReviewUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewListRelationFilter = {
@@ -509,10 +509,6 @@ export type ReviewUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type ReviewCreateNestedOneWithoutReportsInput = {
   create?: Prisma.XOR<Prisma.ReviewCreateWithoutReportsInput, Prisma.ReviewUncheckedCreateWithoutReportsInput>
   connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutReportsInput
@@ -535,7 +531,7 @@ export type ReviewCreateWithoutUserInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string | null
+  aiCheckedAt?: Date | string
   reports?: Prisma.ReportCreateNestedManyWithoutReviewInput
 }
 
@@ -547,7 +543,7 @@ export type ReviewUncheckedCreateWithoutUserInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string | null
+  aiCheckedAt?: Date | string
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReviewInput
 }
 
@@ -589,7 +585,7 @@ export type ReviewScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   aiLabel?: Prisma.StringNullableFilter<"Review"> | string | null
   aiReason?: Prisma.StringNullableFilter<"Review"> | string | null
-  aiCheckedAt?: Prisma.DateTimeNullableFilter<"Review"> | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
 }
 
 export type ReviewCreateWithoutReportsInput = {
@@ -600,7 +596,7 @@ export type ReviewCreateWithoutReportsInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string | null
+  aiCheckedAt?: Date | string
   user: Prisma.ProfileCreateNestedOneWithoutReviewsInput
 }
 
@@ -613,7 +609,7 @@ export type ReviewUncheckedCreateWithoutReportsInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string | null
+  aiCheckedAt?: Date | string
 }
 
 export type ReviewCreateOrConnectWithoutReportsInput = {
@@ -640,7 +636,7 @@ export type ReviewUpdateWithoutReportsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.ProfileUpdateOneRequiredWithoutReviewsNestedInput
 }
 
@@ -653,7 +649,7 @@ export type ReviewUncheckedUpdateWithoutReportsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewCreateManyUserInput = {
@@ -664,7 +660,7 @@ export type ReviewCreateManyUserInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string | null
+  aiCheckedAt?: Date | string
 }
 
 export type ReviewUpdateWithoutUserInput = {
@@ -675,7 +671,7 @@ export type ReviewUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reports?: Prisma.ReportUpdateManyWithoutReviewNestedInput
 }
 
@@ -687,7 +683,7 @@ export type ReviewUncheckedUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reports?: Prisma.ReportUncheckedUpdateManyWithoutReviewNestedInput
 }
 
@@ -699,7 +695,7 @@ export type ReviewUncheckedUpdateManyWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -814,7 +810,7 @@ export type $ReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     updatedAt: Date
     aiLabel: string | null
     aiReason: string | null
-    aiCheckedAt: Date | null
+    aiCheckedAt: Date
   }, ExtArgs["result"]["review"]>
   composites: {}
 }
