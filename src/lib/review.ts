@@ -30,6 +30,7 @@ export async function getFlaggedReviews() {
       aiLabel: {
         in: ["spam", "negative"],
       },
+      aiStatus: "flagged",
     },
     orderBy: {
       aiCheckedAt: "desc",

@@ -31,6 +31,7 @@ export type ReportMinAggregateOutputType = {
   reason: string | null
   description: string | null
   createdAt: Date | null
+  status: string | null
 }
 
 export type ReportMaxAggregateOutputType = {
@@ -40,6 +41,7 @@ export type ReportMaxAggregateOutputType = {
   reason: string | null
   description: string | null
   createdAt: Date | null
+  status: string | null
 }
 
 export type ReportCountAggregateOutputType = {
@@ -49,6 +51,7 @@ export type ReportCountAggregateOutputType = {
   reason: number
   description: number
   createdAt: number
+  status: number
   _all: number
 }
 
@@ -60,6 +63,7 @@ export type ReportMinAggregateInputType = {
   reason?: true
   description?: true
   createdAt?: true
+  status?: true
 }
 
 export type ReportMaxAggregateInputType = {
@@ -69,6 +73,7 @@ export type ReportMaxAggregateInputType = {
   reason?: true
   description?: true
   createdAt?: true
+  status?: true
 }
 
 export type ReportCountAggregateInputType = {
@@ -78,6 +83,7 @@ export type ReportCountAggregateInputType = {
   reason?: true
   description?: true
   createdAt?: true
+  status?: true
   _all?: true
 }
 
@@ -160,6 +166,7 @@ export type ReportGroupByOutputType = {
   reason: string
   description: string | null
   createdAt: Date
+  status: string
   _count: ReportCountAggregateOutputType | null
   _min: ReportMinAggregateOutputType | null
   _max: ReportMaxAggregateOutputType | null
@@ -190,6 +197,7 @@ export type ReportWhereInput = {
   reason?: Prisma.StringFilter<"Report"> | string
   description?: Prisma.StringNullableFilter<"Report"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Report"> | Date | string
+  status?: Prisma.StringFilter<"Report"> | string
   reporter?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   review?: Prisma.XOR<Prisma.ReviewScalarRelationFilter, Prisma.ReviewWhereInput>
 }
@@ -201,6 +209,7 @@ export type ReportOrderByWithRelationInput = {
   reason?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   reporter?: Prisma.ProfileOrderByWithRelationInput
   review?: Prisma.ReviewOrderByWithRelationInput
 }
@@ -216,6 +225,7 @@ export type ReportWhereUniqueInput = Prisma.AtLeast<{
   reason?: Prisma.StringFilter<"Report"> | string
   description?: Prisma.StringNullableFilter<"Report"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Report"> | Date | string
+  status?: Prisma.StringFilter<"Report"> | string
   reporter?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   review?: Prisma.XOR<Prisma.ReviewScalarRelationFilter, Prisma.ReviewWhereInput>
 }, "id" | "reporterId_reviewId">
@@ -227,6 +237,7 @@ export type ReportOrderByWithAggregationInput = {
   reason?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.ReportCountOrderByAggregateInput
   _max?: Prisma.ReportMaxOrderByAggregateInput
   _min?: Prisma.ReportMinOrderByAggregateInput
@@ -242,6 +253,7 @@ export type ReportScalarWhereWithAggregatesInput = {
   reason?: Prisma.StringWithAggregatesFilter<"Report"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Report"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Report"> | Date | string
+  status?: Prisma.StringWithAggregatesFilter<"Report"> | string
 }
 
 export type ReportCreateInput = {
@@ -249,6 +261,7 @@ export type ReportCreateInput = {
   reason: string
   description?: string | null
   createdAt?: Date | string
+  status?: string
   reporter: Prisma.ProfileCreateNestedOneWithoutReportsInput
   review: Prisma.ReviewCreateNestedOneWithoutReportsInput
 }
@@ -260,6 +273,7 @@ export type ReportUncheckedCreateInput = {
   reason: string
   description?: string | null
   createdAt?: Date | string
+  status?: string
 }
 
 export type ReportUpdateInput = {
@@ -267,6 +281,7 @@ export type ReportUpdateInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   reporter?: Prisma.ProfileUpdateOneRequiredWithoutReportsNestedInput
   review?: Prisma.ReviewUpdateOneRequiredWithoutReportsNestedInput
 }
@@ -278,6 +293,7 @@ export type ReportUncheckedUpdateInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ReportCreateManyInput = {
@@ -287,6 +303,7 @@ export type ReportCreateManyInput = {
   reason: string
   description?: string | null
   createdAt?: Date | string
+  status?: string
 }
 
 export type ReportUpdateManyMutationInput = {
@@ -294,6 +311,7 @@ export type ReportUpdateManyMutationInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ReportUncheckedUpdateManyInput = {
@@ -303,6 +321,7 @@ export type ReportUncheckedUpdateManyInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ReportListRelationFilter = {
@@ -327,6 +346,7 @@ export type ReportCountOrderByAggregateInput = {
   reason?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type ReportMaxOrderByAggregateInput = {
@@ -336,6 +356,7 @@ export type ReportMaxOrderByAggregateInput = {
   reason?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type ReportMinOrderByAggregateInput = {
@@ -345,6 +366,7 @@ export type ReportMinOrderByAggregateInput = {
   reason?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type ReportCreateNestedManyWithoutReporterInput = {
@@ -436,6 +458,7 @@ export type ReportCreateWithoutReporterInput = {
   reason: string
   description?: string | null
   createdAt?: Date | string
+  status?: string
   review: Prisma.ReviewCreateNestedOneWithoutReportsInput
 }
 
@@ -445,6 +468,7 @@ export type ReportUncheckedCreateWithoutReporterInput = {
   reason: string
   description?: string | null
   createdAt?: Date | string
+  status?: string
 }
 
 export type ReportCreateOrConnectWithoutReporterInput = {
@@ -483,6 +507,7 @@ export type ReportScalarWhereInput = {
   reason?: Prisma.StringFilter<"Report"> | string
   description?: Prisma.StringNullableFilter<"Report"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Report"> | Date | string
+  status?: Prisma.StringFilter<"Report"> | string
 }
 
 export type ReportCreateWithoutReviewInput = {
@@ -490,6 +515,7 @@ export type ReportCreateWithoutReviewInput = {
   reason: string
   description?: string | null
   createdAt?: Date | string
+  status?: string
   reporter: Prisma.ProfileCreateNestedOneWithoutReportsInput
 }
 
@@ -499,6 +525,7 @@ export type ReportUncheckedCreateWithoutReviewInput = {
   reason: string
   description?: string | null
   createdAt?: Date | string
+  status?: string
 }
 
 export type ReportCreateOrConnectWithoutReviewInput = {
@@ -533,6 +560,7 @@ export type ReportCreateManyReporterInput = {
   reason: string
   description?: string | null
   createdAt?: Date | string
+  status?: string
 }
 
 export type ReportUpdateWithoutReporterInput = {
@@ -540,6 +568,7 @@ export type ReportUpdateWithoutReporterInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   review?: Prisma.ReviewUpdateOneRequiredWithoutReportsNestedInput
 }
 
@@ -549,6 +578,7 @@ export type ReportUncheckedUpdateWithoutReporterInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ReportUncheckedUpdateManyWithoutReporterInput = {
@@ -557,6 +587,7 @@ export type ReportUncheckedUpdateManyWithoutReporterInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ReportCreateManyReviewInput = {
@@ -565,6 +596,7 @@ export type ReportCreateManyReviewInput = {
   reason: string
   description?: string | null
   createdAt?: Date | string
+  status?: string
 }
 
 export type ReportUpdateWithoutReviewInput = {
@@ -572,6 +604,7 @@ export type ReportUpdateWithoutReviewInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
   reporter?: Prisma.ProfileUpdateOneRequiredWithoutReportsNestedInput
 }
 
@@ -581,6 +614,7 @@ export type ReportUncheckedUpdateWithoutReviewInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ReportUncheckedUpdateManyWithoutReviewInput = {
@@ -589,6 +623,7 @@ export type ReportUncheckedUpdateManyWithoutReviewInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -600,6 +635,7 @@ export type ReportSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   reason?: boolean
   description?: boolean
   createdAt?: boolean
+  status?: boolean
   reporter?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["report"]>
@@ -611,6 +647,7 @@ export type ReportSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   reason?: boolean
   description?: boolean
   createdAt?: boolean
+  status?: boolean
   reporter?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["report"]>
@@ -622,6 +659,7 @@ export type ReportSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   reason?: boolean
   description?: boolean
   createdAt?: boolean
+  status?: boolean
   reporter?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["report"]>
@@ -633,9 +671,10 @@ export type ReportSelectScalar = {
   reason?: boolean
   description?: boolean
   createdAt?: boolean
+  status?: boolean
 }
 
-export type ReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reporterId" | "reviewId" | "reason" | "description" | "createdAt", ExtArgs["result"]["report"]>
+export type ReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reporterId" | "reviewId" | "reason" | "description" | "createdAt" | "status", ExtArgs["result"]["report"]>
 export type ReportInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reporter?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
@@ -662,6 +701,7 @@ export type $ReportPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     reason: string
     description: string | null
     createdAt: Date
+    status: string
   }, ExtArgs["result"]["report"]>
   composites: {}
 }
@@ -1093,6 +1133,7 @@ export interface ReportFieldRefs {
   readonly reason: Prisma.FieldRef<"Report", 'String'>
   readonly description: Prisma.FieldRef<"Report", 'String'>
   readonly createdAt: Prisma.FieldRef<"Report", 'DateTime'>
+  readonly status: Prisma.FieldRef<"Report", 'String'>
 }
     
 

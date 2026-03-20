@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createClient } from "@/lib/supabase/server";
 import { getAllReports } from "@/lib/report";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getFlaggedReviews } from "@/lib/review";
+import { ModerationActions } from "@/components/moderation-actions";
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -36,11 +37,11 @@ export default async function ModerationPage() {
       </div>
 
       <Tabs defaultValue="reports">
-        <TabsList className="mt-5 mb-5">
+        <TabsList className="mt-5 mb-5 gap-5">
           <TabsTrigger value="reports">Reports</TabsTrigger>
           <TabsTrigger value="ai-detection">AI detection</TabsTrigger>
         </TabsList>
-        <TabsContent value="reports">
+        <TabsContent value="reports" className="flex flex-col gap-8">
           {reports.length ? (
             reports.map((report) => {
               const reporterName =
@@ -52,21 +53,29 @@ export default async function ModerationPage() {
                 <Card key={report.id}>
                   <CardHeader>
                     <CardTitle className="text-base font-semibold">
-                      {report.reason}
+                      {report.reason.charAt(0).toUpperCase() +
+                        report.reason.slice(1)}
                     </CardTitle>
                   </CardHeader>
 
                   <CardContent className="space-y-4">
                     <div className="grid gap-2 text-sm text-muted-foreground">
+                      <p>Review author: {reviewAuthor}</p>
                       <p className="text-sm text-muted-foreground">
                         Review content: {report.review.content}
                       </p>
-                      <p>Review author: {reviewAuthor}</p>
                       <p>Reported by: {reporterName}</p>
                       <p>Date: {formatDate(report.createdAt)}</p>
                       {report.description ? (
-                        <p>Additional details: {report.description}</p>
+                        <p>Report details: {report.description}</p>
                       ) : null}
+                    </div>
+                    <div className="flex justify-end">
+                      <ModerationActions
+                        type="report"
+                        reportId={report.id}
+                        reviewId={report.review.id}
+                      />
                     </div>
                   </CardContent>
                 </Card>
@@ -76,7 +85,7 @@ export default async function ModerationPage() {
             <p className="text-sm text-muted-foreground">No reports.</p>
           )}
         </TabsContent>
-        <TabsContent value="ai-detection">
+        <TabsContent value="ai-detection" className="flex flex-col gap-8">
           {flaggedReviews.length ? (
             flaggedReviews.map((review) => {
               const authorName = review.user.displayName ?? review.user.email;
@@ -85,7 +94,10 @@ export default async function ModerationPage() {
                 <Card key={review.id}>
                   <CardHeader>
                     <CardTitle className="text-base font-semibold">
-                      {review.aiLabel}
+                      {review.aiLabel
+                        ? review.aiLabel.charAt(0).toUpperCase() +
+                          review.aiLabel.slice(1)
+                        : ""}
                     </CardTitle>
                   </CardHeader>
 
@@ -96,10 +108,18 @@ export default async function ModerationPage() {
                       </p>
                       <p>Review author: {authorName}</p>
                       <p>Reported by: Gemini</p>
-                      <p>Date:{formatDate(review.aiCheckedAt)}</p>
+                      <p>
+                        Date:
+                        {review.aiCheckedAt
+                          ? formatDate(review.aiCheckedAt)
+                          : ""}
+                      </p>
                       {review.aiReason ? (
-                        <p>Additional details: {review.aiReason}</p>
+                        <p>Gemini reason: {review.aiReason}</p>
                       ) : null}
+                    </div>
+                    <div className="flex justify-end">
+                      <ModerationActions type="ai" reviewId={review.id} />
                     </div>
                   </CardContent>
                 </Card>

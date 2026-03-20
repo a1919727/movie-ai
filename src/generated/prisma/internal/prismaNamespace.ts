@@ -775,7 +775,8 @@ export const ReviewScalarFieldEnum = {
   updatedAt: 'updatedAt',
   aiLabel: 'aiLabel',
   aiReason: 'aiReason',
-  aiCheckedAt: 'aiCheckedAt'
+  aiCheckedAt: 'aiCheckedAt',
+  aiStatus: 'aiStatus'
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
@@ -787,7 +788,8 @@ export const ReportScalarFieldEnum = {
   reviewId: 'reviewId',
   reason: 'reason',
   description: 'description',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  status: 'status'
 } as const
 
 export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]

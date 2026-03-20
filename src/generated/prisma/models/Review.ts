@@ -44,6 +44,7 @@ export type ReviewMinAggregateOutputType = {
   aiLabel: string | null
   aiReason: string | null
   aiCheckedAt: Date | null
+  aiStatus: string | null
 }
 
 export type ReviewMaxAggregateOutputType = {
@@ -56,6 +57,7 @@ export type ReviewMaxAggregateOutputType = {
   aiLabel: string | null
   aiReason: string | null
   aiCheckedAt: Date | null
+  aiStatus: string | null
 }
 
 export type ReviewCountAggregateOutputType = {
@@ -68,6 +70,7 @@ export type ReviewCountAggregateOutputType = {
   aiLabel: number
   aiReason: number
   aiCheckedAt: number
+  aiStatus: number
   _all: number
 }
 
@@ -90,6 +93,7 @@ export type ReviewMinAggregateInputType = {
   aiLabel?: true
   aiReason?: true
   aiCheckedAt?: true
+  aiStatus?: true
 }
 
 export type ReviewMaxAggregateInputType = {
@@ -102,6 +106,7 @@ export type ReviewMaxAggregateInputType = {
   aiLabel?: true
   aiReason?: true
   aiCheckedAt?: true
+  aiStatus?: true
 }
 
 export type ReviewCountAggregateInputType = {
@@ -114,6 +119,7 @@ export type ReviewCountAggregateInputType = {
   aiLabel?: true
   aiReason?: true
   aiCheckedAt?: true
+  aiStatus?: true
   _all?: true
 }
 
@@ -212,7 +218,8 @@ export type ReviewGroupByOutputType = {
   updatedAt: Date
   aiLabel: string | null
   aiReason: string | null
-  aiCheckedAt: Date
+  aiCheckedAt: Date | null
+  aiStatus: string | null
   _count: ReviewCountAggregateOutputType | null
   _avg: ReviewAvgAggregateOutputType | null
   _sum: ReviewSumAggregateOutputType | null
@@ -247,7 +254,8 @@ export type ReviewWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   aiLabel?: Prisma.StringNullableFilter<"Review"> | string | null
   aiReason?: Prisma.StringNullableFilter<"Review"> | string | null
-  aiCheckedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
+  aiCheckedAt?: Prisma.DateTimeNullableFilter<"Review"> | Date | string | null
+  aiStatus?: Prisma.StringNullableFilter<"Review"> | string | null
   user?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   reports?: Prisma.ReportListRelationFilter
 }
@@ -261,7 +269,8 @@ export type ReviewOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   aiLabel?: Prisma.SortOrderInput | Prisma.SortOrder
   aiReason?: Prisma.SortOrderInput | Prisma.SortOrder
-  aiCheckedAt?: Prisma.SortOrder
+  aiCheckedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  aiStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.ProfileOrderByWithRelationInput
   reports?: Prisma.ReportOrderByRelationAggregateInput
 }
@@ -279,7 +288,8 @@ export type ReviewWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   aiLabel?: Prisma.StringNullableFilter<"Review"> | string | null
   aiReason?: Prisma.StringNullableFilter<"Review"> | string | null
-  aiCheckedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
+  aiCheckedAt?: Prisma.DateTimeNullableFilter<"Review"> | Date | string | null
+  aiStatus?: Prisma.StringNullableFilter<"Review"> | string | null
   user?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   reports?: Prisma.ReportListRelationFilter
 }, "id" | "userId_movieId">
@@ -293,7 +303,8 @@ export type ReviewOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrder
   aiLabel?: Prisma.SortOrderInput | Prisma.SortOrder
   aiReason?: Prisma.SortOrderInput | Prisma.SortOrder
-  aiCheckedAt?: Prisma.SortOrder
+  aiCheckedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  aiStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ReviewCountOrderByAggregateInput
   _avg?: Prisma.ReviewAvgOrderByAggregateInput
   _max?: Prisma.ReviewMaxOrderByAggregateInput
@@ -313,7 +324,8 @@ export type ReviewScalarWhereWithAggregatesInput = {
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
   aiLabel?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
   aiReason?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
-  aiCheckedAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
+  aiCheckedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Review"> | Date | string | null
+  aiStatus?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
 }
 
 export type ReviewCreateInput = {
@@ -324,7 +336,8 @@ export type ReviewCreateInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string
+  aiCheckedAt?: Date | string | null
+  aiStatus?: string | null
   user: Prisma.ProfileCreateNestedOneWithoutReviewsInput
   reports?: Prisma.ReportCreateNestedManyWithoutReviewInput
 }
@@ -338,7 +351,8 @@ export type ReviewUncheckedCreateInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string
+  aiCheckedAt?: Date | string | null
+  aiStatus?: string | null
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReviewInput
 }
 
@@ -350,7 +364,8 @@ export type ReviewUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.ProfileUpdateOneRequiredWithoutReviewsNestedInput
   reports?: Prisma.ReportUpdateManyWithoutReviewNestedInput
 }
@@ -364,7 +379,8 @@ export type ReviewUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reports?: Prisma.ReportUncheckedUpdateManyWithoutReviewNestedInput
 }
 
@@ -377,7 +393,8 @@ export type ReviewCreateManyInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string
+  aiCheckedAt?: Date | string | null
+  aiStatus?: string | null
 }
 
 export type ReviewUpdateManyMutationInput = {
@@ -388,7 +405,8 @@ export type ReviewUpdateManyMutationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ReviewUncheckedUpdateManyInput = {
@@ -400,7 +418,8 @@ export type ReviewUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ReviewListRelationFilter = {
@@ -428,6 +447,7 @@ export type ReviewCountOrderByAggregateInput = {
   aiLabel?: Prisma.SortOrder
   aiReason?: Prisma.SortOrder
   aiCheckedAt?: Prisma.SortOrder
+  aiStatus?: Prisma.SortOrder
 }
 
 export type ReviewAvgOrderByAggregateInput = {
@@ -444,6 +464,7 @@ export type ReviewMaxOrderByAggregateInput = {
   aiLabel?: Prisma.SortOrder
   aiReason?: Prisma.SortOrder
   aiCheckedAt?: Prisma.SortOrder
+  aiStatus?: Prisma.SortOrder
 }
 
 export type ReviewMinOrderByAggregateInput = {
@@ -456,6 +477,7 @@ export type ReviewMinOrderByAggregateInput = {
   aiLabel?: Prisma.SortOrder
   aiReason?: Prisma.SortOrder
   aiCheckedAt?: Prisma.SortOrder
+  aiStatus?: Prisma.SortOrder
 }
 
 export type ReviewSumOrderByAggregateInput = {
@@ -509,6 +531,10 @@ export type ReviewUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type ReviewCreateNestedOneWithoutReportsInput = {
   create?: Prisma.XOR<Prisma.ReviewCreateWithoutReportsInput, Prisma.ReviewUncheckedCreateWithoutReportsInput>
   connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutReportsInput
@@ -531,7 +557,8 @@ export type ReviewCreateWithoutUserInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string
+  aiCheckedAt?: Date | string | null
+  aiStatus?: string | null
   reports?: Prisma.ReportCreateNestedManyWithoutReviewInput
 }
 
@@ -543,7 +570,8 @@ export type ReviewUncheckedCreateWithoutUserInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string
+  aiCheckedAt?: Date | string | null
+  aiStatus?: string | null
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutReviewInput
 }
 
@@ -585,7 +613,8 @@ export type ReviewScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   aiLabel?: Prisma.StringNullableFilter<"Review"> | string | null
   aiReason?: Prisma.StringNullableFilter<"Review"> | string | null
-  aiCheckedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
+  aiCheckedAt?: Prisma.DateTimeNullableFilter<"Review"> | Date | string | null
+  aiStatus?: Prisma.StringNullableFilter<"Review"> | string | null
 }
 
 export type ReviewCreateWithoutReportsInput = {
@@ -596,7 +625,8 @@ export type ReviewCreateWithoutReportsInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string
+  aiCheckedAt?: Date | string | null
+  aiStatus?: string | null
   user: Prisma.ProfileCreateNestedOneWithoutReviewsInput
 }
 
@@ -609,7 +639,8 @@ export type ReviewUncheckedCreateWithoutReportsInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string
+  aiCheckedAt?: Date | string | null
+  aiStatus?: string | null
 }
 
 export type ReviewCreateOrConnectWithoutReportsInput = {
@@ -636,7 +667,8 @@ export type ReviewUpdateWithoutReportsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.ProfileUpdateOneRequiredWithoutReviewsNestedInput
 }
 
@@ -649,7 +681,8 @@ export type ReviewUncheckedUpdateWithoutReportsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ReviewCreateManyUserInput = {
@@ -660,7 +693,8 @@ export type ReviewCreateManyUserInput = {
   updatedAt?: Date | string
   aiLabel?: string | null
   aiReason?: string | null
-  aiCheckedAt?: Date | string
+  aiCheckedAt?: Date | string | null
+  aiStatus?: string | null
 }
 
 export type ReviewUpdateWithoutUserInput = {
@@ -671,7 +705,8 @@ export type ReviewUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reports?: Prisma.ReportUpdateManyWithoutReviewNestedInput
 }
 
@@ -683,7 +718,8 @@ export type ReviewUncheckedUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reports?: Prisma.ReportUncheckedUpdateManyWithoutReviewNestedInput
 }
 
@@ -695,7 +731,8 @@ export type ReviewUncheckedUpdateManyWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   aiLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  aiCheckedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aiCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -739,6 +776,7 @@ export type ReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   aiLabel?: boolean
   aiReason?: boolean
   aiCheckedAt?: boolean
+  aiStatus?: boolean
   user?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   reports?: boolean | Prisma.Review$reportsArgs<ExtArgs>
   _count?: boolean | Prisma.ReviewCountOutputTypeDefaultArgs<ExtArgs>
@@ -754,6 +792,7 @@ export type ReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   aiLabel?: boolean
   aiReason?: boolean
   aiCheckedAt?: boolean
+  aiStatus?: boolean
   user?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["review"]>
 
@@ -767,6 +806,7 @@ export type ReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   aiLabel?: boolean
   aiReason?: boolean
   aiCheckedAt?: boolean
+  aiStatus?: boolean
   user?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["review"]>
 
@@ -780,9 +820,10 @@ export type ReviewSelectScalar = {
   aiLabel?: boolean
   aiReason?: boolean
   aiCheckedAt?: boolean
+  aiStatus?: boolean
 }
 
-export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "movieId" | "content" | "createdAt" | "updatedAt" | "aiLabel" | "aiReason" | "aiCheckedAt", ExtArgs["result"]["review"]>
+export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "movieId" | "content" | "createdAt" | "updatedAt" | "aiLabel" | "aiReason" | "aiCheckedAt" | "aiStatus", ExtArgs["result"]["review"]>
 export type ReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   reports?: boolean | Prisma.Review$reportsArgs<ExtArgs>
@@ -810,7 +851,8 @@ export type $ReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     updatedAt: Date
     aiLabel: string | null
     aiReason: string | null
-    aiCheckedAt: Date
+    aiCheckedAt: Date | null
+    aiStatus: string | null
   }, ExtArgs["result"]["review"]>
   composites: {}
 }
@@ -1245,6 +1287,7 @@ export interface ReviewFieldRefs {
   readonly aiLabel: Prisma.FieldRef<"Review", 'String'>
   readonly aiReason: Prisma.FieldRef<"Review", 'String'>
   readonly aiCheckedAt: Prisma.FieldRef<"Review", 'DateTime'>
+  readonly aiStatus: Prisma.FieldRef<"Review", 'String'>
 }
     
 
