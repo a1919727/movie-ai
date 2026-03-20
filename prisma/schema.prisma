@@ -43,6 +43,9 @@ model Review {
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  aiLabel   String?
+  aiReason  String?
+  aiCheckedAt DateTime?
 
   user      Profile  @relation(fields: [userId], references: [id])
   reports   Report[]

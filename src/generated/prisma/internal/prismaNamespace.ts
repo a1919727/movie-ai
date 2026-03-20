@@ -772,7 +772,10 @@ export const ReviewScalarFieldEnum = {
   movieId: 'movieId',
   content: 'content',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  aiLabel: 'aiLabel',
+  aiReason: 'aiReason',
+  aiCheckedAt: 'aiCheckedAt'
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
