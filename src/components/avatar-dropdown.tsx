@@ -8,12 +8,17 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 type User = {
   id: string;
@@ -35,6 +40,7 @@ export function AvatarDropdown({ user, isAdmin }: AvatarDropdownProps) {
   const initial = userName.charAt(0).toUpperCase();
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
+  const { setTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -75,9 +81,20 @@ export function AvatarDropdown({ user, isAdmin }: AvatarDropdownProps) {
               <Link href="/admin/moderation">Admin</Link>
             </DropdownMenuItem>
           ) : null}
-          <DropdownMenuItem>Favorites</DropdownMenuItem>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>Setting</DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                <DropdownMenuItem onClick={() => setTheme("dark")}>
+                  Dark
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme("light")}>
+                  Light
+                </DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem variant="destructive" onClick={handleSignOut}>
             Log out
