@@ -1,3 +1,6 @@
+"use client";
+
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -8,6 +11,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "./ui/button";
+import Autoplay from "embla-carousel-autoplay";
 
 type Movie = {
   id: number;
@@ -16,8 +20,15 @@ type Movie = {
 };
 
 export function HeroCarousel({ movies }: { movies: Movie[] }) {
+  const plugin = React.useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: true }),
+  );
+
   return (
-    <Carousel className="w-full rounded-2xl overflow-hidden">
+    <Carousel
+      plugins={[plugin.current]}
+      className="w-full rounded-2xl overflow-hidden"
+    >
       <CarouselContent className="ml-0">
         {movies.map((movie) => (
           <CarouselItem key={movie.id} className="pl-0">
