@@ -9,7 +9,6 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuPortal,
-  DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -71,7 +70,7 @@ export function AvatarDropdown({ user, isAdmin }: AvatarDropdownProps) {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-32">
+      <DropdownMenuContent className="w-32" align="end">
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <Link href="/profile">Profile</Link>
