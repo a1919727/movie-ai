@@ -25,7 +25,7 @@ export function MovieCard({ movie }: MovieCardProps) {
         <MoviePoster path={movie.poster_path} title={movie.title} />
         <CardHeader>
           <CardTitle>{movie.title}</CardTitle>
-          <CardDescription className="mt-1 flex items-center gap-3 text-sm text-foreground">
+          <CardDescription className="mt-1 flex items-center gap-3 text-sm text-muted-foreground">
             <span>{year}</span>
             <span className="flex items-center gap-1">
               <Star className="size-4 fill-yellow-300 text-yellow-300" />
