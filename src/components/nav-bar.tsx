@@ -4,7 +4,7 @@ import { AvatarDropdown } from "./avatar-dropdown";
 import { SearchBar } from "./search-bar";
 import { Clapperboard } from "lucide-react";
 
-export async function Header() {
+export async function NavBar() {
   const supabase = await createClient();
   const {
     data: { user },
@@ -12,8 +12,8 @@ export async function Header() {
   const isAdmin = user?.email === process.env.ADMIN_EMAIL;
 
   return (
-    <header>
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <header className="mt-5">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 gap-3">
         <div className="flex gap-1">
           <Clapperboard />
           <Link href="/" className="font-bold">

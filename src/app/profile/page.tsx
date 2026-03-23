@@ -22,7 +22,7 @@ export default async function ProfilePage() {
   const initial = displayName.charAt(0).toUpperCase();
 
   return (
-    <main className="mx-auto w-full max-w-2xl py-20">
+    <main className="mx-auto w-full max-w-2xl px-4 sm:px-6 py-10">
       <div className="flex flex-col gap-10">
         <Card>
           <CardContent>

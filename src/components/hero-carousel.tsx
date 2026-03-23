@@ -30,7 +30,7 @@ export function HeroCarousel({ movies }: { movies: Movie[] }) {
               />
               <div className="absolute bottom-10 left-10 text-white">
                 <h2 className="text-4xl font-bold mb-5">{movie.title}</h2>
-                <div className="flex gap-10">
+                <div className="flex gap-2 sm:gap-4 md:gap-6 lg:gap-8">
                   <Button
                     asChild
                     size="lg"
