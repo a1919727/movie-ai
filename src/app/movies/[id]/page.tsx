@@ -46,7 +46,7 @@ export default async function MovieDetailsPage({
 
   return (
     <main className="mx-auto w-full max-w-7xl px-6 py-10">
-      <div className="flex items-center gap-10">
+      <div className="flex items-start gap-10">
         <MoviePoster
           path={movie.poster_path}
           title={movie.title}
