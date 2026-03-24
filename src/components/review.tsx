@@ -3,7 +3,7 @@
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Trash2 } from "lucide-react";
 import { deleteReview, saveReview } from "@/actions/review";
 import { useState } from "react";
@@ -114,6 +114,7 @@ export function ReviewSection({
                       src={review.user.avatarUrl ?? ""}
                       alt={userName}
                     />
+                    <AvatarFallback>{initial}</AvatarFallback>
                   </Avatar>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
