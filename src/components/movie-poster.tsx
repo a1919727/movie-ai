@@ -22,7 +22,7 @@ export function MoviePoster({
     return (
       <div
         className={cn(
-          "relative aspect-[2/3] overflow-hidden rounded-xl",
+          "relative aspect-[2/3] overflow-hidden rounded-xl shrink-0",
           className,
         )}
       >
@@ -34,7 +34,7 @@ export function MoviePoster({
   return (
     <div
       className={cn(
-        "relative aspect-[2/3] overflow-hidden rounded-xl",
+        "relative aspect-[2/3] overflow-hidden rounded-xl shrink-0",
         className,
       )}
     >
