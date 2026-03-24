@@ -117,7 +117,7 @@ export default async function ModerationPage({
             <p className="text-sm text-muted-foreground">No reports.</p>
           )}
 
-          {reportsResult.totalPages > 0 ? (
+          {reportsResult.totalPages > 1 ? (
             <ModerationPagination
               currentPage={reportsPage}
               totalPages={reportsResult.totalPages}
@@ -171,7 +171,7 @@ export default async function ModerationPage({
           ) : (
             <p className="text-sm text-muted-foreground">No reports.</p>
           )}
-          {detectionResult.totalPages > 0 ? (
+          {detectionResult.totalPages > 1 ? (
             <ModerationPagination
               currentPage={aiPage}
               totalPages={detectionResult.totalPages}
