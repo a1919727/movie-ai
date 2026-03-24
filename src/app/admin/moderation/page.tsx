@@ -1,11 +1,20 @@
 import { redirect } from "next/navigation";
-
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createClient } from "@/lib/supabase/server";
-import { getAllReports } from "@/lib/report";
+import { getReports } from "@/lib/report";
 import { getFlaggedReviews } from "@/lib/review";
 import { ModerationActions } from "@/components/moderation-actions";
+import { ModerationPagination } from "@/components/moderation-pagination";
+
+type ModerationPageProps = {
+  searchParams?: Promise<{
+    tab?: string;
+    reportsPage?: string;
+    aiPage?: string;
+  }>;
+};
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -15,7 +24,9 @@ function formatDate(date: Date) {
   });
 }
 
-export default async function ModerationPage() {
+export default async function ModerationPage({
+  searchParams,
+}: ModerationPageProps) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -24,8 +35,21 @@ export default async function ModerationPage() {
   if (!user) redirect("/auth?next=/admin/moderation");
   if (user.email !== process.env.ADMIN_EMAIL) redirect("/");
 
-  const reports = await getAllReports();
-  const flaggedReviews = await getFlaggedReviews();
+  const params = await searchParams;
+  const activeTab = params?.tab === "ai-detection" ? "ai-detection" : "reports";
+  const reportsPage = Math.max(1, Number(params?.reportsPage ?? "1") || 1);
+  const aiPage = Math.max(1, Number(params?.aiPage ?? "1") || 1);
+
+  const PAGE_SIZE = 5;
+  const reportsResult = await getReports({
+    page: reportsPage,
+    limit: PAGE_SIZE,
+  });
+
+  const detectionResult = await getFlaggedReviews({
+    page: aiPage,
+    limit: PAGE_SIZE,
+  });
 
   return (
     <main className="mx-auto w-full max-w-5xl px-10 py-10">
@@ -36,14 +60,22 @@ export default async function ModerationPage() {
         </p>
       </div>
 
-      <Tabs defaultValue="reports">
+      <Tabs defaultValue={activeTab}>
         <TabsList className="mt-5 mb-5 gap-5">
-          <TabsTrigger value="reports">Reports</TabsTrigger>
-          <TabsTrigger value="ai-detection">AI detection</TabsTrigger>
+          <TabsTrigger value="reports" asChild>
+            <Link href="/admin/moderation?tab=reports&reportsPage=1">
+              Reports
+            </Link>
+          </TabsTrigger>
+          <TabsTrigger value="ai-detection" asChild>
+            <Link href="/admin/moderation?tab=ai-detection&aiPage=1">
+              AI detection
+            </Link>
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="reports" className="flex flex-col gap-8">
-          {reports.length ? (
-            reports.map((report) => {
+          {reportsResult.reports.length ? (
+            reportsResult.reports.map((report) => {
               const reporterName =
                 report.reporter.displayName ?? report.reporter.email;
               const reviewAuthor =
@@ -84,10 +116,21 @@ export default async function ModerationPage() {
           ) : (
             <p className="text-sm text-muted-foreground">No reports.</p>
           )}
+
+          {reportsResult.totalPages > 0 ? (
+            <ModerationPagination
+              currentPage={reportsPage}
+              totalPages={reportsResult.totalPages}
+              tabHref={(page) =>
+                `/admin/moderation?tab=reports&reportsPage=${page}&aiPage=${aiPage}`
+              }
+            />
+          ) : null}
         </TabsContent>
+
         <TabsContent value="ai-detection" className="flex flex-col gap-8">
-          {flaggedReviews.length ? (
-            flaggedReviews.map((review) => {
+          {detectionResult.reviews.length ? (
+            detectionResult.reviews.map((review) => {
               const authorName = review.user.displayName ?? review.user.email;
 
               return (
@@ -128,6 +171,15 @@ export default async function ModerationPage() {
           ) : (
             <p className="text-sm text-muted-foreground">No reports.</p>
           )}
+          {detectionResult.totalPages > 0 ? (
+            <ModerationPagination
+              currentPage={aiPage}
+              totalPages={detectionResult.totalPages}
+              tabHref={(page) =>
+                `/admin/moderation?tab=ai-detection&reportsPage=${reportsPage}&aiPage=${page}`
+              }
+            />
+          ) : null}
         </TabsContent>
       </Tabs>
     </main>
