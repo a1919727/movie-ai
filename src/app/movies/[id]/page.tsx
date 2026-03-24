@@ -45,7 +45,7 @@ export default async function MovieDetailsPage({
   if (user) userReview = await getUserReview(user.id, movie.id);
 
   return (
-    <main className="mx-auto w-full max-w-7xl px-6 py-10">
+    <main className="mx-auto w-full max-w-7xl px-10 py-10">
       <div className="flex items-start gap-10">
         <MoviePoster
           path={movie.poster_path}

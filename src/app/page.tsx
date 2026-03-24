@@ -16,7 +16,7 @@ export default async function HomePage() {
     }));
 
   return (
-    <main className="mx-auto w-full max-w-7xl px-6 py-10">
+    <main className="mx-auto w-full max-w-7xl px-10 py-10">
       <HeroCarousel movies={heroMovies} />
 
       <section>

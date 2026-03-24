@@ -28,7 +28,7 @@ export default async function ModerationPage() {
   const flaggedReviews = await getFlaggedReviews();
 
   return (
-    <main className="mx-auto w-full max-w-5xl px-6 py-10">
+    <main className="mx-auto w-full max-w-5xl px-10 py-10">
       <div className="space-y-2">
         <h1 className="text-3xl font-bold text-foreground">Moderation</h1>
         <p className="text-sm text-muted-foreground">
