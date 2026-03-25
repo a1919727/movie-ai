@@ -46,11 +46,11 @@ export default async function MovieDetailsPage({
 
   return (
     <main className="mx-auto w-full max-w-7xl px-10 py-10">
-      <div className="flex items-start gap-10">
+      <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-10">
         <MoviePoster
           path={movie.poster_path}
           title={movie.title}
-          className="w-64"
+          className="mx-auto w-full md:w-64"
         />
         <section className="flex flex-col gap-5">
           <h1 className="text-3xl font-bold text-foreground">{movie.title}</h1>
