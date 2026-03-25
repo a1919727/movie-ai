@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { NavBar } from "@/components/nav-bar";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "MovieAI",
@@ -25,6 +26,7 @@ export default function RootLayout({
           >
             <NavBar />
             <div className="py-10">{children}</div>
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>

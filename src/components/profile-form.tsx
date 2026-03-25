@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
+import { toast } from "sonner";
 
 type ProfileFormProps = {
   initialName: string;
@@ -21,16 +22,11 @@ export function ProfileForm({ initialName, initialEmail }: ProfileFormProps) {
   const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setIsSubmitted(true);
-    setMessage(null);
-    setError(null);
-
     try {
       const supabase = createClient();
       const trimmedName = name.trim();
@@ -64,11 +60,11 @@ export function ProfileForm({ initialName, initialEmail }: ProfileFormProps) {
       });
 
       setPassword("");
-      setMessage("Profile has been updated");
       router.refresh();
+      toast.success("Profile has been updated");
     } catch (errorMessage) {
       console.log(errorMessage);
-      setError("Failed to update profile");
+      toast.error("Failed to update profile");
     } finally {
       setIsSubmitted(false);
     }
@@ -115,11 +111,6 @@ export function ProfileForm({ initialName, initialEmail }: ProfileFormProps) {
               placeholder="Leave blank to keep your current password"
             />
           </div>
-
-          {message ? (
-            <p className="text-sm text-foreground">{message}</p>
-          ) : null}
-          {error ? <p className="text-sm text-destructive">{error}</p> : null}
 
           <div className="flex justify-end">
             <Button type="submit" disabled={isSubmitted}>

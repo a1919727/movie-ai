@@ -18,6 +18,7 @@ import { SelectReason } from "@/components/select-reason";
 import { Textarea } from "./ui/textarea";
 import { useState } from "react";
 import { saveReport } from "@/actions/report";
+import { toast } from "sonner";
 
 type ReportProps = {
   reviewId: string;
@@ -37,7 +38,9 @@ export function ReportDialog({ reviewId }: ReportProps) {
       await saveReport(reviewId, reason, description);
       setReason("");
       setDescription("");
+      toast.success("Report has been submitted ");
     } catch (error) {
+      toast.error("Failed to report");
       console.error("Failed to submit report", error);
     } finally {
       setIsSubmitted(false);

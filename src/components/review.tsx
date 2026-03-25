@@ -9,6 +9,7 @@ import { deleteReview, saveReview } from "@/actions/review";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ReportDialog } from "@/components/report-dialog";
+import { toast } from "sonner";
 
 type ReviewProps = {
   id: string;
@@ -56,7 +57,9 @@ export function ReviewSection({
     try {
       await saveReview(movieId, trimmed);
       router.refresh();
+      toast.success("Review has been submitted");
     } catch (error) {
+      toast.error("Failed to submit review");
       console.error("Failed to save review", error);
     } finally {
       setIsSubmitted(false);
@@ -64,8 +67,14 @@ export function ReviewSection({
   }
 
   async function handleDelete() {
-    await deleteReview(movieId);
-    router.refresh();
+    try {
+      await deleteReview(movieId);
+      router.refresh();
+      toast.success("Review deleted");
+    } catch (error) {
+      toast.error("Failed to delete review");
+      console.error("Failed to delete review");
+    }
   }
 
   return (
