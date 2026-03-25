@@ -1,12 +1,11 @@
 import { MoviePoster } from "@/components/movie-poster";
-import { Badge } from "@/components/ui/badge";
 import { getMovieDetails, getMovieCasts } from "@/lib/tmdb";
-import { Star } from "lucide-react";
 import { MovieRating } from "@/components/movie-rating";
 import { createClient } from "@/lib/supabase/server";
 import { getCommunityRating, getUserRating } from "@/lib/rating";
 import { ReviewSection } from "@/components/review";
 import { getMovieReviews, getUserReview } from "@/lib/review";
+import { MovieInfo } from "@/components/movie-info";
 
 type MovieDetailsPageProps = {
   params: Promise<{
@@ -23,11 +22,6 @@ export default async function MovieDetailsPage({
     getMovieCasts(id),
   ]);
   const topCredits = credits.cast.slice(0, 6);
-  const year = movie.release_date
-    ? new Date(movie.release_date).getFullYear()
-    : "Unknown";
-  const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
-
   // Rating
   const supabase = await createClient();
   const {
@@ -53,26 +47,13 @@ export default async function MovieDetailsPage({
           className="mx-auto w-full md:w-64"
         />
         <section className="flex flex-col gap-5">
-          <h1 className="text-3xl font-bold text-foreground">{movie.title}</h1>
-          <div className="flex items-center gap-8 text-foreground">
-            <span>{year}</span>
-            <span className="flex items-center gap-1">
-              <Star className="size-4 fill-yellow-300 text-yellow-300 " />
-              {rating}
-            </span>
-          </div>
-          <div className="text-foreground">
-            <h2 className="text-base font-bold text-foreground">Overview</h2>
-            <p>{movie.overview}</p>
-          </div>
-          <div>
-            <h2 className="text-base font-bold text-foreground">Cast</h2>
-            {topCredits.map((credit) => (
-              <Badge variant="outline" key={credit.id}>
-                {credit.name}
-              </Badge>
-            ))}
-          </div>
+          <MovieInfo
+            title={movie.title}
+            year={movie.release_date}
+            tmdbRating={movie.vote_average}
+            overview={movie.overview}
+            topCredits={topCredits}
+          />
 
           <MovieRating
             movieId={movieId}
