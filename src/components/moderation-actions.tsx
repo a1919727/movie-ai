@@ -2,13 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
 import {
   deleteReviewByAdmin,
   dismissReport,
   approveReview,
 } from "@/actions/moderation";
 import { Button } from "@/components/ui/button";
+import { DeleteReviewDialog } from "./delete-review-dialog";
+import { toast } from "sonner";
 
 type ModerationActionsProps =
   | {
@@ -30,9 +31,11 @@ export function ModerationActions(props: ModerationActionsProps) {
 
     try {
       await deleteReviewByAdmin(props.reviewId);
+      toast.success("Reported review has been deleted");
       router.refresh();
     } catch (error) {
-      console.error("Failed to delete review", error);
+      toast.error("Failed to delete reported review");
+      console.error("Failed to delete reported review", error);
     } finally {
       setIsSubmitted(false);
     }
@@ -47,10 +50,10 @@ export function ModerationActions(props: ModerationActionsProps) {
       } else {
         await approveReview(props.reviewId);
       }
-
+      toast.success("Reported review has been approved");
       router.refresh();
     } catch (error) {
-      console.error("Failed to secondary action", error);
+      console.error("Failed to approve reported review", error);
     } finally {
       setIsSubmitted(false);
     }
@@ -58,14 +61,11 @@ export function ModerationActions(props: ModerationActionsProps) {
 
   return (
     <div className="flex items-center gap-2">
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={handleDelete}
-        disabled={isSubmitted}
-      >
-        Delete review
-      </Button>
+      <DeleteReviewDialog onConfirm={handleDelete}>
+        <Button variant="outline" size="sm" disabled={isSubmitted}>
+          Delete review
+        </Button>
+      </DeleteReviewDialog>
 
       <Button
         variant="outline"

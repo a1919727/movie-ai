@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ReportDialog } from "@/components/report-dialog";
 import { toast } from "sonner";
+import { DeleteReviewDialog } from "./delete-review-dialog";
 
 type ReviewProps = {
   id: string;
@@ -140,16 +141,15 @@ export function ReviewSection({
                     {review.content}
                   </p>
                   {userReview?.id === review.id ? (
-                    <div className="flex items-center gap-5">
-                      <button
+                    <DeleteReviewDialog onConfirm={handleDelete}>
+                      <Button
                         type="button"
-                        onClick={handleDelete}
-                        className="text-muted-foreground hover:scale-105"
+                        className="text-foreground hover:scale-105 bg-transparent"
                         aria-label="Delete review"
                       >
                         <Trash2 className="size-5" />
-                      </button>
-                    </div>
+                      </Button>
+                    </DeleteReviewDialog>
                   ) : null}
                   {isSignedIn && userReview?.id !== review.id ? (
                     <ReportDialog reviewId={review.id} />
