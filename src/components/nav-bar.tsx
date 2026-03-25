@@ -4,6 +4,7 @@ import { AvatarDropdown } from "./avatar-dropdown";
 import { SearchBar } from "./search-bar";
 import { Clapperboard } from "lucide-react";
 import { Separator } from "./ui/separator";
+import { Button } from "./ui/button";
 
 export async function NavBar() {
   const supabase = await createClient();
@@ -14,7 +15,7 @@ export async function NavBar() {
 
   return (
     <header className="fixed w-full z-10 bg-background">
-      <div className="mx-auto flex items-center justify-between gap-3 px-10 py-4">
+      <div className="mx-auto max-w-7xl flex items-center justify-between px-10 py-4 gap-2">
         <div className="flex items-center gap-1">
           <Clapperboard />
           <Link href="/" className="font-bold">
@@ -27,7 +28,9 @@ export async function NavBar() {
           {user ? (
             <AvatarDropdown user={user} isAdmin={isAdmin} />
           ) : (
-            <Link href="/auth">Sign in</Link>
+            <Button variant="outline" asChild>
+              <Link href="/auth">Sign in</Link>
+            </Button>
           )}
         </div>
       </div>
