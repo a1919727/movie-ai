@@ -23,17 +23,6 @@ export async function deleteReviewByAdmin(reviewId: string) {
   });
 }
 
-export async function dismissReport(reportId: string) {
-  await requireAdmin();
-
-  await prisma.report.update({
-    where: { id: reportId },
-    data: {
-      status: "dismiss",
-    },
-  });
-}
-
 export async function approveReview(reviewId: string) {
   await requireAdmin();
 
