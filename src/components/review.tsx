@@ -144,7 +144,9 @@ export function ReviewSection({
                     <DeleteReviewDialog onConfirm={handleDelete}>
                       <Button
                         type="button"
-                        className="text-foreground hover:scale-105 bg-transparent"
+                        variant="ghost"
+                        size="icon"
+                        className="text-foreground hover:scale-105"
                         aria-label="Delete review"
                       >
                         <Trash2 className="size-5" />
