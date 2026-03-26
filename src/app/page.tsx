@@ -3,6 +3,7 @@ import { MovieCard } from "@/components/movie-card";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Inter } from "next/font/google";
 
 export default async function HomePage() {
   const movieResponse = await getPopularMovies();
