@@ -21,9 +21,9 @@ export function MovieCard({ movie }: MovieCardProps) {
 
   return (
     <Link href={`/movies/${movie.id}`}>
-      <Card className="relative mx-auto w-full max-w-sm pt-0 transition-transform duration-300 hover:-translate-y-1">
+      <Card className="relative mx-auto h-full w-full max-w-sm pt-0 transition-transform duration-300 hover:-translate-y-1">
         <MoviePoster path={movie.poster_path} title={movie.title} />
-        <CardHeader>
+        <CardHeader className="flex flex-col">
           <CardTitle>{movie.title}</CardTitle>
           <CardDescription className="mt-1 flex items-center gap-3 text-sm text-muted-foreground">
             <span>{year}</span>
