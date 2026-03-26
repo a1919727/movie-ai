@@ -22,8 +22,9 @@ import { toast } from "sonner";
 
 type ReportProps = {
   reviewId: string;
+  isSignedIn: boolean;
 };
-export function ReportDialog({ reviewId }: ReportProps) {
+export function ReportDialog({ reviewId, isSignedIn }: ReportProps) {
   const [reason, setReason] = useState("");
   const [description, setDescription] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -46,6 +47,20 @@ export function ReportDialog({ reviewId }: ReportProps) {
       setIsSubmitted(false);
     }
   }
+
+  if (!isSignedIn) {
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        type="button"
+        onClick={() => toast.error("Please sign in to report reviews")}
+      >
+        <Flag className="size-5" />
+      </Button>
+    );
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>

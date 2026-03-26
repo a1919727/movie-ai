@@ -59,6 +59,7 @@ export default async function MovieDetailsPage({
             movieId={movieId}
             userRating={userRatingRecord?.value ?? null}
             communityRating={communityRating ?? null}
+            isSignedIn={!!user}
           />
 
           <ReviewSection

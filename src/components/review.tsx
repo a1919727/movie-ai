@@ -103,9 +103,18 @@ export function ReviewSection({
               </div>
             </>
           ) : (
-            <p className="text-sm text-muted-foreground">
-              Sign in to write a review.
-            </p>
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-sm text-muted-foreground">
+                Sign in to write a review.
+              </p>
+              <Button
+                variant="outline"
+                type="button"
+                onClick={() => toast.error("Please sign in to write a review")}
+              >
+                Sign in to review
+              </Button>
+            </div>
           )}
         </CardContent>
       </Card>
@@ -153,8 +162,8 @@ export function ReviewSection({
                       </Button>
                     </DeleteReviewDialog>
                   ) : null}
-                  {isSignedIn && userReview?.id !== review.id ? (
-                    <ReportDialog reviewId={review.id} />
+                  {userReview?.id !== review.id ? (
+                    <ReportDialog reviewId={review.id} isSignedIn={isSignedIn} />
                   ) : null}
                 </div>
               </div>

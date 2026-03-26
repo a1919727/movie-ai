@@ -4,17 +4,20 @@ import { useState } from "react";
 import { Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { saveRating } from "@/actions/rating";
+import { toast } from "sonner";
 
 type MovieRating = {
   movieId: number;
   userRating: number | null;
   communityRating: number | null;
+  isSignedIn: boolean;
 };
 
 export function MovieRating({
   movieId,
   userRating,
   communityRating,
+  isSignedIn,
 }: MovieRating) {
   const router = useRouter();
   const [currentRating, setCurrentRating] = useState(userRating ?? 0);
@@ -22,15 +25,21 @@ export function MovieRating({
 
   async function handleRate(value: number) {
     if (isSubmitted) return;
+    if (!isSignedIn) {
+      toast.error("Please sign in to rate this movie");
+      return;
+    }
 
     setCurrentRating(value);
     setIsSubmitted(true);
 
     try {
       await saveRating(movieId, value);
+      toast.success("Rating submitted");
       router.refresh();
     } catch (error) {
       setCurrentRating(userRating ?? 0);
+      toast.error("Failed to save rating");
       console.error("Failed to save rating", error);
     } finally {
       setIsSubmitted(false);
@@ -75,7 +84,9 @@ export function MovieRating({
         </div>
 
         <p className="text-sm text-muted-foreground">
-          Please rate this movie from 1 to 5 stars.
+          {isSignedIn
+            ? "Please rate this movie from 1 to 5 stars."
+            : "Sign in to rate this movie."}
         </p>
       </div>
     </section>
