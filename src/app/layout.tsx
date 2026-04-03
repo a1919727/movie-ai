@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { NavBar } from "@/components/nav-bar";
+import { LayoutShell } from "@/components/layout-shell";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
@@ -28,8 +29,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <NavBar />
-            <div className="py-10">{children}</div>
+            <LayoutShell navBar={<NavBar />}>{children}</LayoutShell>
             <Toaster />
           </ThemeProvider>
         </body>
