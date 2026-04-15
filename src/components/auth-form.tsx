@@ -22,7 +22,7 @@ export function AuthForm({ error, message, mode, next }: AuthFormProps) {
   }
 
   return (
-    <Card className="w-full max-w-xl gap-6 rounded-2 border border-zinc-100 bg-white px-5 py-6 shadow-sm sm:gap-8 sm:rounded-3xl sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+    <Card className="w-full max-w-xl gap-6 rounded-2 border border-zinc-100 bg-white px-5 py-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 sm:gap-8 sm:rounded-3xl sm:px-8 sm:py-10 lg:px-10 lg:py-12">
       <div className="flex w-full max-w-lg items-center">
         <div className="w-full">
           <CardHeader className="space-y-4 px-0">
@@ -30,11 +30,17 @@ export function AuthForm({ error, message, mode, next }: AuthFormProps) {
               Movie.ai
             </CardTitle>
             <Tabs defaultValue={mode} className="w-full">
-              <TabsList className="grid h-12 w-full grid-cols-2 rounded-full bg-muted/80 p-1 sm:h-14">
-                <TabsTrigger className="rounded-full" value="login">
+              <TabsList className="grid h-12 w-full grid-cols-2 rounded-full bg-muted/80 p-1 dark:bg-zinc-800 sm:h-14">
+                <TabsTrigger
+                  className="rounded-full dark:data-active:bg-zinc-900 dark:data-active:text-zinc-100"
+                  value="login"
+                >
                   Login
                 </TabsTrigger>
-                <TabsTrigger className="rounded-full" value="signup">
+                <TabsTrigger
+                  className="rounded-full dark:data-active:bg-zinc-900 dark:data-active:text-zinc-100"
+                  value="signup"
+                >
                   Sign up
                 </TabsTrigger>
               </TabsList>

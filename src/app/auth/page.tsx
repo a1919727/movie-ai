@@ -17,7 +17,7 @@ export default async function Auth({ searchParams }: AuthPageProps) {
   const next = params.next?.startsWith("/") ? params.next : "/profile";
 
   return (
-    <main className="min-h-screen bg-white lg:grid lg:grid-cols-2">
+    <main className="min-h-screen bg-white dark:bg-zinc-950 lg:grid lg:grid-cols-2">
       <div className="relative min-h-[32vh] sm:min-h-[38vh] lg:min-h-screen">
         <Image
           src={bg}
@@ -35,7 +35,7 @@ export default async function Auth({ searchParams }: AuthPageProps) {
         </div>
       </div>
 
-      <div className="flex min-h-[68vh] items-start justify-center bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:min-h-screen lg:items-center lg:px-16">
+      <div className="flex min-h-[68vh] items-start justify-center bg-zinc-50 px-4 py-6 dark:bg-zinc-950 sm:px-6 sm:py-8 lg:min-h-screen lg:items-center lg:px-16">
         <AuthForm
           error={params.error}
           message={params.message}
